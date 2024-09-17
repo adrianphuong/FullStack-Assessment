@@ -10,6 +10,8 @@ app.use(cors());
 let globalRole = "";
 let questions = [];
 
+let candidates = [];
+
 app.get("/api/getrole", async(req,res) => {
     if(globalRole) {
         res.send(globalRole);
@@ -59,6 +61,22 @@ app.post("/api/createquestion", async(req,res) => {
         res.status(500).send({message: err});
     }
 })
+
+app.get("/api/getcandidates", async(req,res) => {
+    res.send(candidates);
+})
+
+app.post("/api/createcandidate", async(req,res) => {
+    const {candidate} = req.body;
+    candidates.push(candidate);
+})
+
+app.post("/api/deletecandidate", async(req,res) => {
+    const {id} = req.body;
+    candidates = candidates.filter((c) => c.id !== id);
+    res.send(candidates);
+})
+
 
 app.listen(PORT, () => {
     console.log("Server is running on " + PORT);

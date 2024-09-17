@@ -11,6 +11,7 @@ export const Candidate = () => {
   const [completed, setCompleted] = useState(false)
   const [wrongCount, setWrongCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
+  const [id, setId] = useState(0);
 
   const getQuestions = () => {
     axios.get("http://localhost:2000/api/getquestions").then((res) => {
@@ -34,6 +35,15 @@ export const Candidate = () => {
 
   useEffect(() => {
     if (completed) {
+        const candidate = {
+            id: id,
+            wrong:wrongCount,
+            correct: correctCount
+        }
+        axios.post("http://localhost:2000/api/createcandidate", {candidate:candidate});
+        setCorrectCount(0);
+        setId(id+1);
+        setWrongCount(0);
         setStart(false);
         setCompleted(false)
       }
@@ -52,9 +62,9 @@ export const Candidate = () => {
 
 
   const handleTimerExpiry = () => {
+    setWrongCount(wrongCount+1);
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
-      setWrongCount(wrongCount+1);
       setTimeLeft(timer);
     } else {
       console.log("No more questions left");
@@ -67,9 +77,9 @@ export const Candidate = () => {
 
   const checkAnswer = (value, answer) => {
     if (value === answer) {
+        setCorrectCount(correctCount+1);
       if (currentIndex < questions.length - 1) {
         setCurrentIndex((prevIndex) => prevIndex + 1);
-        setCorrectCount(correctCount+1);
       } else {
         setCompleted(true);
       }
