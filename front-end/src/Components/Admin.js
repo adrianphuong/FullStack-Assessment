@@ -69,17 +69,17 @@ export const Admin = () => {
             <button onClick={() => setViewCandidates(false)} className='tracking-tight bg-gray-50 hover:bg-gray-200 border-2 transition-all px-4 p-2 rounded-md text-gray-500 font-semibold'>Create Question</button>
             }
       </div>
-      <div className='mt-4 m-auto w-full bg-gray-200 h-[80%]'>
+      <div className='mt-4 m-auto w-full bg-gray-200 h-[80%] rounded-md'>
         {viewCandidates ?
-        <div className='w-10/12 m-auto overflow-auto h-full'>
+        <div className='w-11/12 p-1 flex flex-col gap-2 m-auto overflow-auto h-full bg-gray-300'>
             {candidates.map((c) => (
-                <div className='w-full h-10  flex justify-between bg-gray-50'>
-                    <h1 className='my-auto p-2'>Candidate</h1>
+                <div className='w-full h-12 flex justify-between bg-gray-50 rounded-md '>
+                    <h1 className='my-auto p-2 tracking-tight font-semibold'>Candidate #{c.id}</h1>
                     <div className='right flex gap-4'>
-                        <h2 className='my-auto text-sm'>Wrong: {c.wrong}</h2>
-                        <h2 className='my-auto text-sm'>Right: {c.correct}</h2>
-                        <button onClick={() => deleteCandidate(c)} className='px-4 p-2 bg-green-400'>Pass</button>
-                        <button onClick={() => deleteCandidate(c)} className='px-4 p-2 bg-red-400'>Fail</button>
+                        <h2 className='my-auto text-sm font-medium tracking-tight'>Wrong: {c.wrong}</h2>
+                        <h2 className='my-auto text-sm font-medium tracking-tight'>Right: {c.correct}</h2>
+                        <button onClick={() => deleteCandidate(c)} className='px-5 p-2 text-sm rounded-md text-white font-medium bg-green-400 hover:bg-green-500 transition-all'>Pass</button>
+                        <button onClick={() => deleteCandidate(c)} className='px-5 p-2 text-sm bg-red-400 text-red-800 font-medium rounded-md hover:bg-red-500 transition-all'>Fail</button>
                     </div>
                 </div>
             ))}
@@ -95,7 +95,7 @@ export const Admin = () => {
                 <div className='w-full h-60 mt-4 bg-gray-300 rounded-md overflow-auto flex flex-col gap-2 '>
                     <div className='input-box bg-gray-100 p-3 rounded-md flex justify-between'>
                         <h1 className='font-semibold my-auto'>Choice A</h1>
-                        <div className='flex gap-2'>
+                        <div className={`flex gap-2 ${!answerA && 'hidden'}`}>
                             <h1 className='text-sm my-auto font-semibold'>Right answer?</h1>
                             <input checked = {answerA === correctAnswer && correctAnswer !== ""} onChange={() => setCorrectAnswer(answerA)} type = "checkbox" />
                         </div>
@@ -103,7 +103,7 @@ export const Admin = () => {
                     </div>
                     <div className='input-box bg-gray-100 p-3 rounded-md flex justify-between'>
                         <h1 className='font-semibold my-auto'>Choice B</h1>
-                        <div className='flex gap-2'>
+                        <div className={`flex gap-2 ${!answerB && 'hidden'}`}>
                             <h1 className='text-sm my-auto font-semibold'>Right answer?</h1>
                             <input type = "checkbox" checked = {answerB === correctAnswer && correctAnswer !== ""} onChange={() => setCorrectAnswer(answerB)}/>
                         </div>
@@ -111,7 +111,7 @@ export const Admin = () => {
                     </div>
                     <div className='input-box bg-gray-100 p-3 rounded-md flex justify-between'>
                         <h1 className='font-semibold my-auto'>Choice C</h1>
-                        <div className='flex gap-2'>
+                        <div className={`flex gap-2 ${!answerC && 'hidden'}`}>
                             <h1 className='text-sm my-auto font-semibold'>Right answer?</h1>
                             <input type = "checkbox" checked = {answerC === correctAnswer && correctAnswer !== ""} onChange={() => setCorrectAnswer(answerC)}/>
                         </div>
@@ -119,7 +119,7 @@ export const Admin = () => {
                     </div>
                     <div className='input-box bg-gray-100 p-3 rounded-md flex justify-between'>
                         <h1 className='font-semibold my-auto'>Choice D</h1>
-                        <div className='flex gap-2'>
+                        <div className={`flex gap-2 ${!answerD && 'hidden'}`}>
                             <h1 className='text-sm my-auto font-semibold'>Right answer?</h1>
                             <input type = "checkbox" checked = {answerD === correctAnswer && correctAnswer !== ""} onChange={() => setCorrectAnswer(answerD)}/>
                         </div>

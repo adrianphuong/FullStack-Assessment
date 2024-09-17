@@ -13,6 +13,8 @@ export const Candidate = () => {
   const [correctCount, setCorrectCount] = useState(0);
   const [id, setId] = useState(0);
 
+  const [message, setMessage] = useState("");
+
   const getQuestions = () => {
     axios.get("http://localhost:2000/api/getquestions").then((res) => {
       const sorted = res.data.sort((a, b) => b.difficulty - a.difficulty);
@@ -67,11 +69,14 @@ export const Candidate = () => {
       setCurrentIndex((prevIndex) => prevIndex - 1);
       setTimeLeft(timer);
     } else {
-      console.log("No more questions left");
       setStart(false);
       const middle = questions.length % 2 === 0 ? Math.floor(questions.length / 2) -1 : Math.floor(questions.length / 2);
       setCurrentIndex(middle);
       setCompleted(true)
+      setMessage("Quiz complete!");
+      setTimeout(() => {
+        setMessage("");
+      },2000)
     }
   };
 
@@ -90,9 +95,12 @@ export const Candidate = () => {
   };
 
 
+  console.log(message);
+
   return (
     <div className='m-auto w-10/12 mt-10 rounded-md h-[75%] bg-gray-100 '>
         <h2 className=' text-sm p-2 text-gray-500'>You have 30 seconds to answer each question, when the timer runs out, you will go down a level of difficulty.</h2>
+        {message && (<div className='absolute top-10 left-1/2 -translate-x-1/2 w-2/6 h-10 bg-green-400 rounded-md p-2 text-white font-medium'>{message}</div>)}
         <div className='w-full p-2 flex gap-2'>
             {!start ? (
           <button onClick={() => setStart(true)} className='tracking-tight bg-green-400 hover:bg-green-500 transition-all px-4 p-2 rounded-md text-green-700 font-semibold'>Begin Questions</button>
@@ -107,10 +115,10 @@ export const Candidate = () => {
                     <div>
                     <h1 className='text-3xl mb-2'>{currentQuestion.question}</h1>
                     <div className='flex flex-col gap-2'>
-                        <button onClick={() => checkAnswer(currentQuestion.answerA, currentQuestion.correctAnswer)} className='w-full p-2 bg-gray-50'>Choice A: <b>{currentQuestion.answerA}</b></button>
-                        <button onClick={() => checkAnswer(currentQuestion.answerB, currentQuestion.correctAnswer)} className='w-full p-2 bg-gray-50'>Choice A: <b>{currentQuestion.answerB}</b></button>
-                        <button onClick={() => checkAnswer(currentQuestion.answerC, currentQuestion.correctAnswer)} className='w-full p-2 bg-gray-50'>Choice A: <b>{currentQuestion.answerC}</b></button>
-                        <button onClick={() => checkAnswer(currentQuestion.answerD, currentQuestion.correctAnswer)} className='w-full p-2 bg-gray-50'>Choice A: <b>{currentQuestion.answerD}</b></button>
+                        <button onClick={() => checkAnswer(currentQuestion.answerA, currentQuestion.correctAnswer)} className='w-full rounded-md p-2 bg-gray-50 hover:bg-gray-200 transition-all'>Choice A: <b>{currentQuestion.answerA}</b></button>
+                        <button onClick={() => checkAnswer(currentQuestion.answerB, currentQuestion.correctAnswer)} className='w-full rounded-md p-2 bg-gray-50 hover:bg-gray-200 transition-all'>Choice A: <b>{currentQuestion.answerB}</b></button>
+                        <button onClick={() => checkAnswer(currentQuestion.answerC, currentQuestion.correctAnswer)} className='w-full rounded-md p-2 bg-gray-50 hover:bg-gray-200 transition-all'>Choice A: <b>{currentQuestion.answerC}</b></button>
+                        <button onClick={() => checkAnswer(currentQuestion.answerD, currentQuestion.correctAnswer)} className='w-full rounded-md p-2 bg-gray-50 hover:bg-gray-200 transition-all'>Choice A: <b>{currentQuestion.answerD}</b></button>
                     </div>
                     </div>
                     }
