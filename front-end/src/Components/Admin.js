@@ -71,7 +71,7 @@ export const Admin = () => {
       </div>
       <div className='mt-4 m-auto w-full bg-gray-200 h-[80%] rounded-md'>
         {viewCandidates ?
-        <div className='w-11/12 p-1 flex flex-col gap-2 m-auto overflow-auto h-full bg-gray-300'>
+        <div className='w-full p-1 flex flex-col gap-2 m-auto overflow-auto h-full '>
             {candidates.map((c) => (
                 <div className='w-full h-12 flex justify-between bg-gray-50 rounded-md '>
                     <h1 className='my-auto p-2 tracking-tight font-semibold'>Candidate #{c.id}</h1>

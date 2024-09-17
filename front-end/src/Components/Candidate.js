@@ -87,6 +87,10 @@ export const Candidate = () => {
         setCurrentIndex((prevIndex) => prevIndex + 1);
       } else {
         setCompleted(true);
+        setMessage("Quiz complete!");
+        setTimeout(() => {
+            setMessage("");
+        },2000)
       }
     } else {
       handleTimerExpiry(); 
