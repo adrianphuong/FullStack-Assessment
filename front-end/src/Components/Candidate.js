@@ -115,7 +115,7 @@ export const Candidate = () => {
                 <div className='w-full mt-4 m-auto'>
                     {currentQuestion &&
                     <div>
-                    <h1 className='text-3xl mb-2'>{currentQuestion.question}</h1>
+                    <h1 className='text-3xl mb-2'><b>#{currentIndex+1}.</b> {currentQuestion.question}</h1>
                     <div className='flex flex-col gap-2'>
                         <button onClick={() => checkAnswer(currentQuestion.answerA, currentQuestion.correctAnswer)} className='w-full rounded-md p-2 bg-gray-50 hover:bg-gray-200 transition-all'>Choice A: <b>{currentQuestion.answerA}</b></button>
                         <button onClick={() => checkAnswer(currentQuestion.answerB, currentQuestion.correctAnswer)} className='w-full rounded-md p-2 bg-gray-50 hover:bg-gray-200 transition-all'>Choice A: <b>{currentQuestion.answerB}</b></button>
