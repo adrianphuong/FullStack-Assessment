@@ -17,7 +17,7 @@ export const Candidate = () => {
 
   const getQuestions = () => {
     axios.get("http://localhost:2000/api/getquestions").then((res) => {
-      const sorted = res.data.sort((a, b) => b.difficulty - a.difficulty);
+      const sorted = res.data.sort((a, b) => a.difficulty - b.difficulty);
       setQuestions(sorted);
       const middle = sorted.length % 2 === 0 ? Math.floor(sorted.length / 2) -1 : Math.floor(sorted.length / 2);
       setCurrentIndex(middle);
@@ -94,8 +94,6 @@ export const Candidate = () => {
     setTimeLeft(timer); 
   };
 
-
-  console.log(message);
 
   return (
     <div className='m-auto w-10/12 mt-10 rounded-md h-[75%] bg-gray-100 '>
